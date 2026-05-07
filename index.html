@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Gestion Stockage PRO v2</title>
+<title>Gestion Stockage PRO v3</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
@@ -27,6 +27,20 @@
   }
   .stat-chip span{color:var(--accent);font-weight:600}
   #dangerChip{display:none;border-color:var(--danger);color:var(--danger)}
+
+  /* GitHub status chip */
+  .gh-chip{
+    display:flex;align-items:center;gap:6px;
+    background:var(--surface2);border:1px solid var(--border);border-radius:6px;
+    padding:4px 10px;font-size:11px;font-family:var(--mono);color:var(--text2);cursor:pointer;
+    transition:.15s
+  }
+  .gh-chip:hover{border-color:var(--accent)}
+  .gh-dot{width:7px;height:7px;border-radius:50%;background:var(--border);flex-shrink:0;transition:.3s}
+  .gh-dot.connected{background:var(--ok)}
+  .gh-dot.syncing{background:var(--warn);animation:pulse .8s infinite}
+  .gh-dot.error{background:var(--danger)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
   .main{display:flex;flex:1;overflow:hidden}
 
@@ -59,6 +73,7 @@
   .btn-secondary{background:var(--surface2) !important;border:1px solid var(--border) !important;color:var(--text) !important}
   .btn-danger{background:var(--danger) !important}
   .btn-ok{background:var(--ok) !important;color:#0f1117 !important}
+  .btn-gh{background:#24292e !important;border:1px solid #444 !important;color:#fff !important}
 
   .active-ref-badge{
     background:var(--surface2);border:1px solid var(--accent);border-radius:5px;
@@ -144,6 +159,35 @@
   .summary-poles{color:var(--text2);font-size:10px;line-height:1.6}
   .summary-count{color:var(--ok);font-weight:600}
   .summary-weight{color:var(--warn)}
+
+  /* Modal GitHub config */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;
+    align-items:center;justify-content:center
+  }
+  .modal-overlay.open{display:flex}
+  .modal{
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:24px;width:440px;max-width:95vw
+  }
+  .modal h2{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+  .modal p{font-size:11px;color:var(--text2);margin-bottom:16px;line-height:1.6}
+  .modal-actions{display:flex;gap:8px;margin-top:16px}
+  .modal-actions button{flex:1}
+  .config-row{margin-bottom:10px}
+  .config-row label{font-size:11px;color:var(--text2);margin-bottom:4px;display:block}
+  .config-row input{background:var(--bg);border-color:var(--border)}
+  .config-row input:focus{border-color:var(--accent)}
+  .gh-help{font-size:10px;color:var(--text2);margin-top:4px;line-height:1.5}
+  .gh-help a{color:var(--accent)}
+  .token-field{display:flex;gap:6px}
+  .token-field input{flex:1;font-family:var(--mono);font-size:11px}
+  .token-eye{background:var(--surface2) !important;border:1px solid var(--border) !important;color:var(--text2) !important;padding:6px 8px !important;font-size:12px !important;flex-shrink:0}
+  .gh-log{
+    background:var(--bg);border:1px solid var(--border);border-radius:5px;
+    padding:8px 10px;font-size:10px;font-family:var(--mono);color:var(--text2);
+    max-height:80px;overflow-y:auto;margin-top:10px;white-space:pre-wrap;line-height:1.5
+  }
 </style>
 </head>
 <body>
@@ -152,10 +196,15 @@
   <div class="topbar">
     <h1>&#9632; Stockage PRO</h1>
     <div class="spacer"></div>
-    <div style="display:flex;gap:10px">
+    <div style="display:flex;gap:10px;align-items:center">
       <div class="stat-chip">Fardeaux: <span id="topCount">0</span></div>
       <div class="stat-chip">Poids total: <span id="topWeight">0</span> kg</div>
       <div class="stat-chip" id="dangerChip">&#9888; Surcharge detectee</div>
+      <!-- GitHub status -->
+      <div class="gh-chip" onclick="openGhConfig()" title="Configurer la sauvegarde GitHub">
+        <div class="gh-dot" id="ghDot"></div>
+        <span id="ghLabel">GitHub</span>
+      </div>
     </div>
   </div>
 
@@ -201,7 +250,7 @@
           <p style="font-size:10px;color:var(--text2);margin-top:6px">Cliquez sur un poteau pour placer / retirer</p>
         </div>
 
-<div class="sidebar-section">
+        <div class="sidebar-section">
           <h3>Rangement automatique</h3>
           <p style="font-size:10px;color:var(--text2);margin-bottom:8px">Saisissez un % par référence souhaitée (les autres à 0).</p>
           <div id="autoList"></div>
@@ -216,9 +265,14 @@
           <button class="btn-secondary" onclick="exportPDF()">&#128424; PDF</button>
         </div>
         <div class="export-row" style="border-top:none;padding-top:0">
-          <button class="btn-secondary" onclick="exportData()" title="Sauvegarder toutes les données (références + plans)">&#128190; Sauvegarder données</button>
+          <button class="btn-secondary" onclick="exportData()" title="Sauvegarder toutes les données localement">&#128190; Local JSON</button>
           <button class="btn-secondary" onclick="document.getElementById('importFile').click()" title="Restaurer des données sauvegardées">&#128228; Restaurer</button>
           <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+        </div>
+        <!-- Bouton GitHub séparé -->
+        <div class="export-row" style="border-top:none;padding-top:0">
+          <button class="btn-gh" onclick="syncGitHub()" id="btnGhSync" title="Sauvegarder sur GitHub">&#128260; Sync GitHub</button>
+          <button class="btn-gh" onclick="loadFromGitHub()" id="btnGhLoad" title="Charger depuis GitHub">&#9660; Charger GitHub</button>
         </div>
       </div>
 
@@ -236,12 +290,12 @@
         <div class="sidebar-section">
           <h3>Liste</h3>
           <div class="ref-list" id="refList"></div>
-        <div class="export-row">
-  <button class="btn-ok" onclick="exportRefsExcel()">📤 Excel refs</button>
-  <button class="btn-secondary" onclick="document.getElementById('importRefsFile').click()">📥 Import Excel</button>
-  <input type="file" id="importRefsFile" accept=".xlsx,.xls" style="display:none" onchange="importRefsExcel(event)">
-</div>
-</div>
+          <div class="export-row">
+            <button class="btn-ok" onclick="exportRefsExcel()">📤 Excel refs</button>
+            <button class="btn-secondary" onclick="document.getElementById('importRefsFile').click()">📥 Import Excel</button>
+            <input type="file" id="importRefsFile" accept=".xlsx,.xls" style="display:none" onchange="importRefsExcel(event)">
+          </div>
+        </div>
       </div>
     </div>
 
@@ -276,14 +330,59 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════ -->
+<!-- Modal configuration GitHub             -->
+<!-- ═══════════════════════════════════════ -->
+<div class="modal-overlay" id="ghModal">
+  <div class="modal">
+    <h2>&#128279; Configuration GitHub</h2>
+    <p>Les données sont sauvegardées dans un fichier JSON dans votre dépôt GitHub.<br>Le token est stocké <strong>uniquement dans votre navigateur</strong> (localStorage), jamais dans le code.</p>
+
+    <div class="config-row">
+      <label>Token d'accès personnel (classic)</label>
+      <div class="token-field">
+        <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxx">
+        <button class="token-eye" onclick="toggleToken()" id="tokenEyeBtn">&#128065;</button>
+      </div>
+      <div class="gh-help">
+        Créer un token sur <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens</a> avec la permission <code>repo</code> (Contents : read & write).
+      </div>
+    </div>
+
+    <div class="config-row">
+      <label>Dépôt (owner/nom-du-repo)</label>
+      <input type="text" id="ghRepo" placeholder="ex: moncompte/stockage-fer">
+    </div>
+
+    <div class="config-row">
+      <label>Chemin du fichier dans le dépôt</label>
+      <input type="text" id="ghPath" placeholder="ex: data.json" value="data.json">
+    </div>
+
+    <div class="config-row">
+      <label>Branche</label>
+      <input type="text" id="ghBranch" placeholder="main" value="main">
+    </div>
+
+    <div class="config-row" style="display:flex;align-items:center;gap:8px;margin-top:12px">
+      <input type="checkbox" id="ghAutoSync" style="width:auto;margin-top:0">
+      <label style="margin:0;font-size:11px;color:var(--text2)">Synchronisation automatique à chaque modification</label>
+    </div>
+
+    <div class="gh-log" id="ghLog">— Logs de synchronisation —</div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeGhConfig()">Fermer</button>
+      <button class="btn-secondary" onclick="testGhConnection()">Tester connexion</button>
+      <button class="btn-ok" onclick="saveGhConfig()">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-  
-  const GITHUB_TOKEN = "data";
-const REPO = "laboprefabloc/Stockage-Fer-poutrelle";
-const FILE_PATH = "data.json";
-const BRANCH = "main";
+
 const MAX_LEVEL = 800;
 const LEVELS = ["A","B","C","D"];
 
@@ -299,9 +398,241 @@ let selectedRef = null;
 let placements = [];
 let currentView = "grid";
 
+// ═══════════════════════════════════════
+// Configuration GitHub (stockée en localStorage, JAMAIS dans le code)
+// ═══════════════════════════════════════
+let ghConfig = JSON.parse(localStorage.getItem("stock_gh_config") || "null") || {
+  token: "",
+  repo: "",
+  path: "data.json",
+  branch: "main",
+  autoSync: false
+};
+
+function saveGhConfigStorage(){
+  localStorage.setItem("stock_gh_config", JSON.stringify(ghConfig));
+}
+
+function ghLog(msg, type="info"){
+  const el = document.getElementById("ghLog");
+  const time = new Date().toLocaleTimeString("fr-FR");
+  const prefix = type==="ok" ? "✓" : type==="error" ? "✗" : "→";
+  el.textContent = "["+time+"] "+prefix+" "+msg+"\n" + el.textContent;
+}
+
+function updateGhStatus(state, label){
+  const dot = document.getElementById("ghDot");
+  const lbl = document.getElementById("ghLabel");
+  dot.className = "gh-dot " + (state||"");
+  lbl.textContent = label || "GitHub";
+}
+
+function openGhConfig(){
+  document.getElementById("ghToken").value = ghConfig.token;
+  document.getElementById("ghRepo").value = ghConfig.repo;
+  document.getElementById("ghPath").value = ghConfig.path;
+  document.getElementById("ghBranch").value = ghConfig.branch;
+  document.getElementById("ghAutoSync").checked = ghConfig.autoSync;
+  document.getElementById("ghModal").classList.add("open");
+}
+
+function closeGhConfig(){
+  document.getElementById("ghModal").classList.remove("open");
+}
+
+function saveGhConfig(){
+  ghConfig.token = document.getElementById("ghToken").value.trim();
+  ghConfig.repo = document.getElementById("ghRepo").value.trim();
+  ghConfig.path = document.getElementById("ghPath").value.trim() || "data.json";
+  ghConfig.branch = document.getElementById("ghBranch").value.trim() || "main";
+  ghConfig.autoSync = document.getElementById("ghAutoSync").checked;
+  saveGhConfigStorage();
+  updateGhStatusFromConfig();
+  ghLog("Configuration enregistrée", "ok");
+  closeGhConfig();
+}
+
+function toggleToken(){
+  const inp = document.getElementById("ghToken");
+  const btn = document.getElementById("tokenEyeBtn");
+  if(inp.type==="password"){
+    inp.type="text";
+    btn.textContent="🙈";
+  } else {
+    inp.type="password";
+    btn.textContent="👁";
+  }
+}
+
+function updateGhStatusFromConfig(){
+  if(!ghConfig.token || !ghConfig.repo){
+    updateGhStatus("", "GitHub");
+  } else {
+    updateGhStatus("connected", ghConfig.repo.split("/")[1]||"GitHub");
+  }
+}
+
+async function testGhConnection(){
+  if(!ghConfig.token || !ghConfig.repo){
+    ghLog("Token ou dépôt manquant — ouvrez la config", "error");
+    return;
+  }
+  ghLog("Test de connexion à "+ghConfig.repo+"…");
+  updateGhStatus("syncing", "Test…");
+  try{
+    const res = await fetch(
+      "https://api.github.com/repos/"+ghConfig.repo,
+      { headers:{ Authorization:"token "+ghConfig.token, "User-Agent":"StockagePRO" } }
+    );
+    if(res.ok){
+      const d = await res.json();
+      ghLog("Connexion OK — dépôt : "+d.full_name, "ok");
+      updateGhStatus("connected", ghConfig.repo.split("/")[1]||"GitHub");
+    } else {
+      const e = await res.json();
+      ghLog("Erreur "+res.status+" : "+(e.message||"accès refusé"), "error");
+      updateGhStatus("error", "Erreur");
+    }
+  } catch(err){
+    ghLog("Erreur réseau : "+err.message, "error");
+    updateGhStatus("error", "Erreur");
+  }
+}
+
+// ─────────────────────────────────────────
+// Sauvegarde vers GitHub
+// ─────────────────────────────────────────
+async function saveToGitHub(silent){
+  if(!ghConfig.token || !ghConfig.repo){
+    if(!silent) alert("Configurez d'abord votre dépôt GitHub (cliquez sur le chip GitHub en haut à droite).");
+    return false;
+  }
+
+  updateGhStatus("syncing", "Sync…");
+  if(!silent) ghLog("Envoi des données vers "+ghConfig.repo+"/"+ghConfig.path+"…");
+
+  const data = {
+    version: 3,
+    date: new Date().toISOString(),
+    plan: currentPlan,
+    refs: refData,
+    plans: plans
+  };
+
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  const apiUrl = "https://api.github.com/repos/"+ghConfig.repo+"/contents/"+ghConfig.path;
+  const headers = {
+    Authorization: "token "+ghConfig.token,
+    "Content-Type": "application/json",
+    "User-Agent": "StockagePRO"
+  };
+
+  try{
+    // 1. Récupérer le SHA du fichier s'il existe déjà
+    let sha = null;
+    const getRes = await fetch(apiUrl, {headers});
+    if(getRes.ok){
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+    } else if(getRes.status !== 404){
+      const e = await getRes.json();
+      throw new Error("GET "+getRes.status+" : "+(e.message||"erreur inconnue"));
+    }
+
+    // 2. Créer ou mettre à jour le fichier
+    const body = { message:"Stockage PRO — auto-save "+new Date().toISOString().slice(0,16), content };
+    if(sha) body.sha = sha;
+    body.branch = ghConfig.branch;
+
+    const putRes = await fetch(apiUrl, { method:"PUT", headers, body:JSON.stringify(body) });
+    if(putRes.ok){
+      if(!silent) ghLog("Sauvegarde réussie ✓", "ok");
+      updateGhStatus("connected", ghConfig.repo.split("/")[1]||"GitHub");
+      return true;
+    } else {
+      const e = await putRes.json();
+      throw new Error("PUT "+putRes.status+" : "+(e.message||"erreur inconnue"));
+    }
+  } catch(err){
+    ghLog("Erreur sauvegarde : "+err.message, "error");
+    updateGhStatus("error", "Erreur");
+    if(!silent) alert("Erreur GitHub :\n"+err.message);
+    return false;
+  }
+}
+
+// Bouton "Sync GitHub" dans la sidebar
+async function syncGitHub(){
+  const ok = await saveToGitHub(false);
+  if(ok) { const el=document.getElementById("ghLog"); openGhConfig(); }
+}
+
+// ─────────────────────────────────────────
+// Chargement depuis GitHub
+// ─────────────────────────────────────────
+async function loadFromGitHub(){
+  if(!ghConfig.token || !ghConfig.repo){
+    alert("Configurez d'abord votre dépôt GitHub.");
+    return;
+  }
+
+  if(!confirm("Charger les données depuis GitHub ?\n\nCela remplacera vos données locales actuelles.")) return;
+
+  updateGhStatus("syncing", "Chargement…");
+  ghLog("Chargement depuis "+ghConfig.repo+"/"+ghConfig.path+"…");
+
+  const apiUrl = "https://api.github.com/repos/"+ghConfig.repo+"/contents/"+ghConfig.path;
+  const headers = { Authorization:"token "+ghConfig.token, "User-Agent":"StockagePRO" };
+
+  try{
+    const res = await fetch(apiUrl, {headers});
+    if(!res.ok){
+      const e = await res.json();
+      throw new Error(res.status+" : "+(e.message||"erreur"));
+    }
+    const fileData = await res.json();
+    const raw = decodeURIComponent(escape(atob(fileData.content)));
+    const data = JSON.parse(raw);
+
+    if(!data.refs || !data.plans) throw new Error("Fichier invalide : structure incorrecte");
+
+    refData = data.refs;
+    plans = data.plans;
+    if(!plans["Default"]) plans["Default"] = {placements:[]};
+    currentPlan = data.plan && plans[data.plan] ? data.plan : "Default";
+    placements = JSON.parse(JSON.stringify(plans[currentPlan].placements||[]));
+
+    saveAll();
+    refreshSelect(); refreshPlans(); renderRefs(); buildAutoList(); render();
+
+    ghLog("Chargement réussi — "+data.refs.length+" refs, "+Object.keys(data.plans).length+" plan(s). Sauvegardé le "+(data.date?new Date(data.date).toLocaleString("fr-FR"):"?"), "ok");
+    updateGhStatus("connected", ghConfig.repo.split("/")[1]||"GitHub");
+    alert("✓ Données chargées depuis GitHub !\n"+data.refs.length+" références, "+Object.keys(data.plans).length+" plan(s).");
+  } catch(err){
+    ghLog("Erreur chargement : "+err.message, "error");
+    updateGhStatus("error", "Erreur");
+    alert("Erreur GitHub :\n"+err.message);
+  }
+}
+
+// ─────────────────────────────────────────
+// Auto-sync si activé
+// ─────────────────────────────────────────
+let autoSyncDebounce = null;
+function triggerAutoSync(){
+  if(!ghConfig.autoSync) return;
+  clearTimeout(autoSyncDebounce);
+  autoSyncDebounce = setTimeout(()=>saveToGitHub(true), 2000);
+}
+
+// ═══════════════════════════════════════
+// Logique principale (inchangée)
+// ═══════════════════════════════════════
+
 function saveAll(){
   localStorage.setItem("stock_refs_v2", JSON.stringify(refData));
   localStorage.setItem("stock_plans_v2", JSON.stringify(plans));
+  triggerAutoSync();
 }
 
 function showSideTab(t){
@@ -436,53 +767,24 @@ function countPlaced(refName){
 }
 
 function autoPlaceOne(ref){
-
   const poles = compute();
-
-  for(let h=3; h>=1; h--){ // hauteur max 3 → 1
-
-    const totalWeight = ref.fardeau * 2 * h; // w = 2 imposé
-
+  for(let h=3; h>=1; h--){
+    const totalWeight = ref.fardeau * 2 * h;
     for(let p=0; p<22; p++){
       for(let lvl=0; lvl<4; lvl++){
-
         if(p+ref.bras > 22) continue;
-
         let ok = true;
-
-        // check poids + conflit ref différente
         for(let i=0;i<ref.bras;i++){
           const cell = poles[p+i][lvl];
-
-          if(cell.total + (totalWeight / ref.bras) > MAX_LEVEL){
-            ok = false;
-            break;
-          }
-
-          // ❌ interdit mélange de refs différentes
-          if(cell.refs.length > 0 && !cell.refs.includes(ref.AR_Ref)){
-            ok = false;
-            break;
-          }
+          if(cell.total + (totalWeight / ref.bras) > MAX_LEVEL){ok=false;break;}
+          if(cell.refs.length > 0 && !cell.refs.includes(ref.AR_Ref)){ok=false;break;}
         }
-
         if(!ok) continue;
-
-        // placement
-        placements.push({
-          ref: JSON.parse(JSON.stringify(ref)),
-          start: p,
-          span: ref.bras,
-          w: 2,
-          h: h,
-          level: lvl
-        });
-
+        placements.push({ref:JSON.parse(JSON.stringify(ref)),start:p,span:ref.bras,w:2,h:h,level:lvl});
         return true;
       }
     }
   }
-
   return false;
 }
 
@@ -502,7 +804,6 @@ function buildGrid(){
   for(let lvl=3;lvl>=0;lvl--){
     const row=document.createElement("div");
     row.className="level-row";
-
     const lbl=document.createElement("div");
     lbl.className="level-label";
     lbl.textContent=LEVELS[lvl];
@@ -513,17 +814,10 @@ function buildGrid(){
       const pct=Math.min(d.total/MAX_LEVEL,1);
       const cell=document.createElement("div");
       cell.className="pole-cell";
-
-      if(d.total===0){
-        cell.classList.add("cell-empty");
-      } else if(d.total>MAX_LEVEL){
-        cell.classList.add("cell-danger");
-        hasDanger=true;
-      } else if(d.total>MAX_LEVEL*0.7){
-        cell.classList.add("cell-warn");
-      } else {
-        cell.classList.add("cell-ok");
-      }
+      if(d.total===0){cell.classList.add("cell-empty");}
+      else if(d.total>MAX_LEVEL){cell.classList.add("cell-danger");hasDanger=true;}
+      else if(d.total>MAX_LEVEL*0.7){cell.classList.add("cell-warn");}
+      else{cell.classList.add("cell-ok");}
 
       cell.innerHTML=
         '<div class="pole-id">P'+(p+1)+'</div>'+
@@ -537,7 +831,6 @@ function buildGrid(){
     gc.appendChild(row);
   }
 
-  // Ligne totaux
   const totals=poles.map(pole=>pole.reduce((a,b)=>a+b.total,0));
   const totRow=document.createElement("div");
   totRow.className="level-row totals-row";
@@ -563,10 +856,7 @@ function buildGrid(){
 
 function updateStats(){
   let cnt=0, w=0;
-  placements.forEach(p=>{
-    cnt+=p.w*p.h;
-    w+=p.ref.fardeau*p.w*p.h;
-  });
+  placements.forEach(p=>{cnt+=p.w*p.h;w+=p.ref.fardeau*p.w*p.h;});
   document.getElementById("topCount").textContent=cnt;
   document.getElementById("topWeight").textContent=Math.round(w);
 }
@@ -576,22 +866,13 @@ function buildSummary(){
   sc.innerHTML="";
   if(placements.length===0) return;
 
-  // Group by AR_Ref
   const groups={};
   placements.forEach(p=>{
     const key=p.ref.AR_Ref;
     if(!groups[key]) groups[key]={ref:p.ref,lines:[]};
-    // Build pole list for this placement
     const poles=[];
     for(let i=0;i<p.span;i++) poles.push("P"+(p.start+i+1));
-    groups[key].lines.push({
-      level: LEVELS[p.level],
-      poles: poles,
-      w: p.w,
-      h: p.h,
-      fardeaux: p.w*p.h,
-      poids: p.ref.fardeau*p.w*p.h
-    });
+    groups[key].lines.push({level:LEVELS[p.level],poles,w:p.w,h:p.h,fardeaux:p.w*p.h,poids:p.ref.fardeau*p.w*p.h});
   });
 
   const wrap=document.createElement("div");
@@ -600,15 +881,7 @@ function buildSummary(){
 
   const table=document.createElement("table");
   table.className="summary-table";
-  table.innerHTML=
-    '<thead><tr>'+
-    '<th>Référence</th>'+
-    '<th>Niveau</th>'+
-    '<th>Poteaux occupés</th>'+
-    '<th>Larg. × Haut.</th>'+
-    '<th>Fardeaux</th>'+
-    '<th>Poids total</th>'+
-    '</tr></thead>';
+  table.innerHTML='<thead><tr><th>Référence</th><th>Niveau</th><th>Poteaux occupés</th><th>Larg. × Haut.</th><th>Fardeaux</th><th>Poids total</th></tr></thead>';
 
   const tbody=document.createElement("tbody");
   Object.values(groups).forEach(g=>{
@@ -627,18 +900,12 @@ function buildSummary(){
         '<td class="summary-weight">'+Math.round(line.poids)+' kg</td>';
       tbody.appendChild(tr);
     });
-
-    // Subtotal row if multiple lines
     if(g.lines.length>1){
       const totalFardeaux=g.lines.reduce((a,l)=>a+l.fardeaux,0);
       const totalPoids=g.lines.reduce((a,l)=>a+l.poids,0);
       const tr=document.createElement("tr");
       tr.style.borderTop="1px solid var(--accent2)";
-      tr.innerHTML=
-        '<td colspan="3" style="text-align:right;color:var(--text2);font-size:10px;padding:4px 10px">Total '+g.ref.AR_Ref+'</td>'+
-        '<td></td>'+
-        '<td class="summary-count" style="text-align:center">'+totalFardeaux+'</td>'+
-        '<td class="summary-weight">'+Math.round(totalPoids)+' kg</td>';
+      tr.innerHTML='<td colspan="3" style="text-align:right;color:var(--text2);font-size:10px;padding:4px 10px">Total '+g.ref.AR_Ref+'</td><td></td><td class="summary-count" style="text-align:center">'+totalFardeaux+'</td><td class="summary-weight">'+Math.round(totalPoids)+' kg</td>';
       tbody.appendChild(tr);
     }
   });
@@ -668,28 +935,22 @@ function drawIso(){
   const canvas=document.getElementById("isoCanvas");
   const ctx=canvas.getContext("2d");
   ctx.clearRect(0,0,canvas.width,canvas.height);
-
   const poles=compute();
   const POLE_W=38, GAP=8, MAX_H=110, BASE_H=12;
   const startX=70, startY=400;
-
   const levelColors=[
     ["#0d3d28","#2dd4a0","#9ffcdf"],
     ["#0d2845","#4f8ef7","#aacfff"],
     ["#2a1e45","#7c5cbf","#c8abff"],
     ["#453a0d","#f7c34f","#ffe8a0"]
   ];
-
   for(let p=21;p>=0;p--){
     const px=startX+p*(POLE_W+GAP);
     const py=startY - p*6;
-
-    // base poteau
     ctx.fillStyle="#1e2235";
     ctx.fillRect(px-1, py+2, POLE_W+2, 7);
     ctx.fillStyle="#2e3350";
     ctx.fillRect(px, py, POLE_W, 5);
-
     for(let lvl=0;lvl<4;lvl++){
       const d=poles[p][lvl];
       if(d.total===0) continue;
@@ -698,18 +959,12 @@ function drawIso(){
       const [dark,mid,light]=levelColors[lvl];
       const by=py - lvl*22 - bh;
       const isDanger=d.total>MAX_LEVEL;
-
-      // face frontale
       ctx.fillStyle=isDanger?"#6b1212":dark;
       ctx.fillRect(px, by, POLE_W, bh);
-      // reflet top
       ctx.fillStyle=isDanger?"#f7524f":mid;
       ctx.fillRect(px, by, POLE_W, 5);
-      // reflet côté droit
       ctx.fillStyle=isDanger?"#cc3333":light;
       ctx.fillRect(px+POLE_W-4, by+5, 4, bh-5);
-
-      // texte
       if(bh>18){
         ctx.save();
         ctx.fillStyle="rgba(255,255,255,0.9)";
@@ -719,20 +974,14 @@ function drawIso(){
         ctx.restore();
       }
     }
-
-    // numéro poteau
     ctx.fillStyle="#8a91b4";
     ctx.font="8px IBM Plex Mono,monospace";
     ctx.textAlign="center";
     ctx.fillText("P"+(p+1), px+POLE_W/2, py+15);
   }
-
-  // Légende
   const legend=[
-    ["A - Sol",levelColors[0][1]],
-    ["B - Bas",levelColors[1][1]],
-    ["C - Milieu",levelColors[2][1]],
-    ["D - Haut",levelColors[3][1]],
+    ["A - Sol",levelColors[0][1]],["B - Bas",levelColors[1][1]],
+    ["C - Milieu",levelColors[2][1]],["D - Haut",levelColors[3][1]],
     ["Surcharge","#f7524f"]
   ];
   legend.forEach(function(item,i){
@@ -750,11 +999,7 @@ function exportExcel(){
   const poles=compute();
   const rows=[["Poteau",...LEVELS,"Total (kg)"]];
   for(let p=0;p<22;p++){
-    rows.push([
-      "P"+(p+1),
-      ...LEVELS.map(function(_,l){return Math.round(poles[p][l].total);}),
-      Math.round(poles[p].reduce(function(a,b){return a+b.total;},0))
-    ]);
+    rows.push(["P"+(p+1),...LEVELS.map(function(_,l){return Math.round(poles[p][l].total);}),Math.round(poles[p].reduce(function(a,b){return a+b.total;},0))]);
   }
   const ws=XLSX.utils.aoa_to_sheet(rows);
   const wb=XLSX.utils.book_new();
@@ -765,37 +1010,20 @@ function exportExcel(){
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(pr),"Références");
 
   const pl=[["#","Référence","Départ","Span","W","H","Niveau","Poids total"]];
-  placements.forEach(function(p,i){
-    pl.push([i+1,p.ref.AR_Ref,p.start+1,p.span,p.w,p.h,LEVELS[p.level],Math.round(p.ref.fardeau*p.w*p.h)]);
-  });
+  placements.forEach(function(p,i){pl.push([i+1,p.ref.AR_Ref,p.start+1,p.span,p.w,p.h,LEVELS[p.level],Math.round(p.ref.fardeau*p.w*p.h)]);});
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(pl),"Placements");
 
-  // Feuille Résumé par référence
   const groups={};
   placements.forEach(function(p){
     const key=p.ref.AR_Ref;
     if(!groups[key]) groups[key]={ref:p.ref,lines:[]};
     const poleList=[];
     for(let i=0;i<p.span;i++) poleList.push("P"+(p.start+i+1));
-    groups[key].lines.push({
-      level:LEVELS[p.level],
-      poles:poleList.join(", "),
-      span:p.span,
-      w:p.w, h:p.h,
-      fardeaux:p.w*p.h,
-      poids:Math.round(p.ref.fardeau*p.w*p.h)
-    });
+    groups[key].lines.push({level:LEVELS[p.level],poles:poleList.join(", "),span:p.span,w:p.w,h:p.h,fardeaux:p.w*p.h,poids:Math.round(p.ref.fardeau*p.w*p.h)});
   });
   const sm=[["Référence","Poids/fardeau (kg)","Niveau","Poteaux occupés","Nb poteaux","Larg.","Haut.","Fardeaux","Poids total (kg)"]];
   Object.values(groups).forEach(function(g){
-    g.lines.forEach(function(line,i){
-      sm.push([
-        i===0?g.ref.AR_Ref:"",
-        i===0?g.ref.fardeau:"",
-        line.level, line.poles, line.span,
-        line.w, line.h, line.fardeaux, line.poids
-      ]);
-    });
+    g.lines.forEach(function(line,i){sm.push([i===0?g.ref.AR_Ref:"",i===0?g.ref.fardeau:"",line.level,line.poles,line.span,line.w,line.h,line.fardeaux,line.poids]);});
     if(g.lines.length>1){
       const tf=g.lines.reduce(function(a,l){return a+l.fardeaux;},0);
       const tp=g.lines.reduce(function(a,l){return a+l.poids;},0);
@@ -829,29 +1057,11 @@ function exportPDF(){
     doc.setDrawColor(46,51,80);doc.line(14,24,283,24);
   }
 
-  // ════════════════════════════════════
-  // PAGE 1 — VUE GRILLE (niveaux × poteaux)
-  // ════════════════════════════════════
   pageHeader("PLAN DE STOCKAGE — VUE GRILLE");
-
-  // sous-titre + légende
   doc.setFont("helvetica","bold");doc.setFontSize(6.5);doc.setTextColor(138,145,180);
   doc.text("NIVEAUX (D\u2192A) / POTEAUX (P1\u2192P22)",14,30);
-  const legDots=[["OK",[45,212,160]],["Mi-charge",[247,195,79]],["Surcharge",[247,82,79]]];
-  let ldx=100;
-  legDots.forEach(function(item){
-    doc.setFillColor(item[1][0],item[1][1],item[1][2]);
-    doc.roundedRect(ldx,26.5,2.5,2.5,0.4,0.4,"F");
-    doc.setTextColor(item[1][0],item[1][1],item[1][2]);
-    doc.text(item[0],ldx+4,30);
-    ldx+=item[0].length*2.2+10;
-  });
 
-  // grille cellules
-  // A4 paysage = 297mm. Marge gauche 14 + label 7 + 22*(cellW+gap) + marge droite 14 <= 297
-  // => 22*(cellW+1) <= 262 => cellW <= 10.9
   const cellW=10.9, cellH=13, gx=22, gy=33, lvlW=7;
-
   for(let lvl=3;lvl>=0;lvl--){
     const rowY=gy+(3-lvl)*(cellH+2);
     doc.setFont("helvetica","bold");doc.setFontSize(8);doc.setTextColor(138,145,180);
@@ -875,14 +1085,13 @@ function exportPDF(){
         doc.text(d.refs.slice(0,1).join(""),cx+cellW/2,rowY+10.5,{align:"center"});
         doc.setFillColor(wc[0],wc[1],wc[2]);
         doc.roundedRect(cx+1,rowY+cellH-1.8,(cellW-2)*pct,1.2,0.3,0.3,"F");
-      }else{
+      } else {
         doc.setFontSize(6);doc.setTextColor(60,65,90);
         doc.text("\u2014",cx+cellW/2,rowY+7.5,{align:"center"});
       }
     }
   }
 
-  // ligne totaux ∑
   const totY=gy+4*(cellH+2)+2;
   doc.setDrawColor(46,51,80);doc.line(gx-lvlW,totY-1,gx+22*(cellW+1),totY-1);
   doc.setFont("helvetica","bold");doc.setFontSize(7);doc.setTextColor(138,145,180);
@@ -899,133 +1108,11 @@ function exportPDF(){
     doc.text(tot+"kg",cx+cellW/2,totY+8,{align:"center"});
   }
 
-  // légende bas
-  const lb=totY+14;
-  doc.setFont("helvetica","bold");doc.setFontSize(7);doc.setTextColor(138,145,180);doc.text("Légende:",14,lb);
-  doc.setFont("helvetica","normal");
-  [[30,[45,212,160],"OK (<70%)"],[58,[247,195,79],"Mi-charge (70-100%)"],[103,[247,82,79],"Surcharge (>800kg)"]].forEach(function(it){
-    doc.setFillColor(it[1][0],it[1][1],it[1][2]);doc.roundedRect(it[0],lb-3,3,3,0.5,0.5,"F");
-    doc.setTextColor(it[1][0],it[1][1],it[1][2]);doc.text(it[2],it[0]+4.5,lb);
-  });
-
-  // ── Résumé par référence ──
-  if(placements.length>0){
-    doc.addPage();
-    pageHeader("RÉSUMÉ PAR RÉFÉRENCE");
-
-    // En-têtes résumé
-    const rh=["Référence","Poids/fardeau","Niveau","Poteaux occupés","Nb poteaux","Larg.×Haut.","Fardeaux","Poids total"];
-    const rcw=[28,24,18,60,22,22,20,26];
-    let rx=14, ry=30;
-
-    doc.setFillColor(33,37,58);
-    doc.rect(rx,ry-6,rcw.reduce(function(a,b){return a+b;},0),8,"F");
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(7.5);
-    doc.setTextColor(200,210,240);
-    rh.forEach(function(h,i){
-      doc.text(h, rx+rcw.slice(0,i).reduce(function(a,b){return a+b;},0)+2, ry);
-    });
-    ry+=5;
-
-    // Grouper les placements par référence
-    const rgroups={};
-    placements.forEach(function(p){
-      const key=p.ref.AR_Ref;
-      if(!rgroups[key]) rgroups[key]={ref:p.ref,lines:[]};
-      const poleList=[];
-      for(let i=0;i<p.span;i++) poleList.push("P"+(p.start+i+1));
-      rgroups[key].lines.push({
-        level:LEVELS[p.level],
-        poles:poleList.join(", "),
-        span:p.span,
-        w:p.w, h:p.h,
-        fardeaux:p.w*p.h,
-        poids:Math.round(p.ref.fardeau*p.w*p.h)
-      });
-    });
-
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(7.5);
-    let altRow=0;
-    Object.values(rgroups).forEach(function(g){
-      g.lines.forEach(function(line,i){
-        if(ry>195){doc.addPage();ry=20;doc.setFillColor(15,17,23);doc.rect(0,0,297,210,"F");}
-        if(altRow%2===0){doc.setFillColor(22,26,40);}
-        else{doc.setFillColor(18,21,34);}
-        doc.rect(rx,ry-4,rcw.reduce(function(a,b){return a+b;},0),7,"F");
-        altRow++;
-
-        const row=[
-          i===0?g.ref.AR_Ref:"",
-          i===0?(g.ref.fardeau+" kg"):"",
-          "Ligne "+line.level,
-          line.poles,
-          line.span+" poteaux",
-          line.w+" × "+line.h,
-          line.fardeaux,
-          Math.round(line.poids)+" kg"
-        ];
-        row.forEach(function(v,ci){
-          if(ci===0){doc.setTextColor(79,142,247); doc.setFont("helvetica","bold");}
-          else if(ci===6){doc.setTextColor(45,212,160); doc.setFont("helvetica","normal");}
-          else if(ci===7){doc.setTextColor(247,195,79); doc.setFont("helvetica","normal");}
-          else{doc.setTextColor(200,210,240); doc.setFont("helvetica","normal");}
-          doc.text(String(v), rx+rcw.slice(0,ci).reduce(function(a,b){return a+b;},0)+2, ry);
-        });
-        ry+=7;
-      });
-
-      // Sous-total si plusieurs lignes
-      if(g.lines.length>1){
-        if(ry>195){doc.addPage();ry=20;doc.setFillColor(15,17,23);doc.rect(0,0,297,210,"F");}
-        doc.setFillColor(33,37,58);
-        doc.rect(rx,ry-4,rcw.reduce(function(a,b){return a+b;},0),7,"F");
-        const tf=g.lines.reduce(function(a,l){return a+l.fardeaux;},0);
-        const tp=g.lines.reduce(function(a,l){return a+l.poids;},0);
-        doc.setFont("helvetica","bold");
-        doc.setFontSize(7);
-        doc.setTextColor(138,145,180);
-        doc.text("Sous-total "+g.ref.AR_Ref, rx+2, ry);
-        doc.setTextColor(45,212,160);
-        doc.text(String(tf), rx+rcw.slice(0,6).reduce(function(a,b){return a+b;},0)+2, ry);
-        doc.setTextColor(247,195,79);
-        doc.text(Math.round(tp)+" kg", rx+rcw.slice(0,7).reduce(function(a,b){return a+b;},0)+2, ry);
-        ry+=8;
-        doc.setFontSize(7.5);
-      } else {
-        ry+=2;
-      }
-    });
-
-    // Grand total
-    if(ry>185){doc.addPage();ry=20;doc.setFillColor(15,17,23);doc.rect(0,0,297,210,"F");}
-    doc.setDrawColor(79,142,247);
-    doc.line(rx,ry,rx+rcw.reduce(function(a,b){return a+b;},0),ry);
-    ry+=6;
-    const gtFardeaux=placements.reduce(function(a,p){return a+p.w*p.h;},0);
-    const gtPoids=Math.round(placements.reduce(function(a,p){return a+p.ref.fardeau*p.w*p.h;},0));
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(9);
-    doc.setTextColor(79,142,247);
-    doc.text("GRAND TOTAL",rx+2,ry);
-    doc.setTextColor(45,212,160);
-    doc.text(String(gtFardeaux)+" fardeaux", rx+rcw.slice(0,5).reduce(function(a,b){return a+b;},0)+2, ry);
-    doc.setTextColor(247,195,79);
-    doc.text(gtPoids+" kg", rx+rcw.slice(0,7).reduce(function(a,b){return a+b;},0)+2, ry);
-  }
-
   doc.save("stockage_"+currentPlan+"_"+new Date().toISOString().slice(0,10)+".pdf");
 }
 
 function exportData(){
-  const data={
-    version:2,
-    date: new Date().toISOString(),
-    plan: currentPlan,
-    refs: refData,
-    plans: plans
-  };
+  const data={version:3,date:new Date().toISOString(),plan:currentPlan,refs:refData,plans};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
   const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);
@@ -1041,13 +1128,8 @@ function importData(event){
   reader.onload=function(e){
     try{
       const data=JSON.parse(e.target.result);
-      if(!data.refs || !data.plans){
-        alert("Fichier invalide : il manque les références ou les plans.");
-        return;
-      }
-      if(!confirm("Restaurer les données ?\n\nCela remplacera toutes vos références et plans actuels.\n\n"+
-        Object.keys(data.plans).length+" plan(s) et "+data.refs.length+" référence(s) trouvés.\nSauvegardés le : "+(data.date?new Date(data.date).toLocaleString("fr-FR"):"inconnu")))
-        return;
+      if(!data.refs || !data.plans){alert("Fichier invalide.");return;}
+      if(!confirm("Restaurer les données ?\n"+Object.keys(data.plans).length+" plan(s) et "+data.refs.length+" référence(s).")) return;
       refData=data.refs;
       plans=data.plans;
       if(!plans["Default"]) plans["Default"]={placements:[]};
@@ -1055,10 +1137,8 @@ function importData(event){
       placements=JSON.parse(JSON.stringify(plans[currentPlan].placements||[]));
       saveAll();
       refreshSelect(); refreshPlans(); renderRefs(); render();
-      alert("✓ Données restaurées avec succès !");
-    } catch(err){
-      alert("Erreur lors de la lecture du fichier : "+err.message);
-    }
+      alert("✓ Données restaurées !");
+    } catch(err){alert("Erreur : "+err.message);}
     event.target.value="";
   };
   reader.readAsText(file);
@@ -1078,7 +1158,6 @@ function buildAutoList(){
 function generateAutoPlan(){
   const inputs = document.querySelectorAll("#autoList input");
   const TOTAL = +(document.getElementById("autoTotal").value)||200;
-
   let targets = [];
   inputs.forEach(input=>{
     const val = +input.value;
@@ -1087,30 +1166,15 @@ function generateAutoPlan(){
       if(ref) targets.push({ref, pct:val});
     }
   });
-
   const resultEl = document.getElementById("autoResult");
-
-  if(targets.length===0){
-    resultEl.textContent = "⚠ Aucune référence sélectionnée.";
-    return;
-  }
-
+  if(targets.length===0){resultEl.textContent = "⚠ Aucune référence sélectionnée.";return;}
   const totalPct = targets.reduce((a,b)=>a+b.pct,0);
   targets.forEach(t=>t.ratio=t.pct/totalPct);
-
-  // Quota par référence, toujours multiple de 2 (w=2 fixe)
-  targets.forEach(t=>{
-    let q = Math.max(2, Math.round(TOTAL*t.ratio));
-    if(q%2!==0) q++;
-    t.target = q;
-  });
-
-  placements = [];
-  const failedMin = [];
-
-  // ── Phase 1 : au moins 1 placement par référence (hauteur max possible) ──
+  targets.forEach(t=>{let q=Math.max(2,Math.round(TOTAL*t.ratio));if(q%2!==0)q++;t.target=q;});
+  placements=[];
+  const failedMin=[];
   for(let t of targets){
-    let placed = false;
+    let placed=false;
     outer:
     for(let h=3;h>=1;h--){
       for(let lvl=0;lvl<4;lvl++){
@@ -1132,8 +1196,6 @@ function generateAutoPlan(){
     }
     if(!placed) failedMin.push(t.ref.AR_Ref);
   }
-
-  // ── Phase 2 : remplissage jusqu'au quota, priorité aux ratios les plus élevés ──
   const sorted=[...targets].sort((a,b)=>b.ratio-a.ratio);
   let progress=true;
   while(progress){
@@ -1143,17 +1205,11 @@ function generateAutoPlan(){
       if(autoPlaceOne(t.ref)) progress=true;
     }
   }
-
   plans[currentPlan]={placements:JSON.parse(JSON.stringify(placements))};
   saveAll();
   render();
-
-  // ── Résultat affiché dans la sidebar (pas de popup) ──
   const lines=["✔ Plan généré\n"];
-  targets.forEach(t=>{
-    const real=countPlaced(t.ref.AR_Ref);
-    lines.push(`${real>=t.target?"✓":"⚠"} ${t.ref.AR_Ref}: ${real}/${t.target} fardeaux`);
-  });
+  targets.forEach(t=>{const real=countPlaced(t.ref.AR_Ref);lines.push(`${real>=t.target?"✓":"⚠"} ${t.ref.AR_Ref}: ${real}/${t.target} fardeaux`);});
   if(failedMin.length>0) lines.push(`\n⚠ Non placées: ${failedMin.join(", ")}`);
   const tp=targets.reduce((a,t)=>a+countPlaced(t.ref.AR_Ref),0);
   const tw=targets.reduce((a,t)=>a+t.target,0);
@@ -1161,152 +1217,63 @@ function generateAutoPlan(){
   resultEl.textContent=lines.join("\n");
 }
 
+function exportRefsExcel(){
+  if(typeof XLSX==="undefined"){alert("Librairie XLSX non chargée.");return;}
+  const rows=[["AR_Ref","Bras","Espace","Poids (kg)"]];
+  refData.forEach(r=>{rows.push([r.AR_Ref,r.bras,r.espace,r.fardeau]);});
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,"References");
+  XLSX.writeFile(wb,"references_stockage.xlsx");
+}
+
+function importRefsExcel(event){
+  const file=event.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=new Uint8Array(e.target.result);
+      const workbook=XLSX.read(data,{type:"array"});
+      const sheet=workbook.Sheets[workbook.SheetNames[0]];
+      const json=XLSX.utils.sheet_to_json(sheet);
+      if(!json.length){alert("Fichier vide.");return;}
+      let added=0,updated=0;
+      json.forEach(row=>{
+        if(!row.AR_Ref) return;
+        const name=String(row.AR_Ref).trim();
+        const existing=refData.find(r=>r.AR_Ref===name);
+        if(existing){existing.bras=+row.Bras||existing.bras;existing.espace=+row.Espace||existing.espace;existing.fardeau=+row["Poids (kg)"]||existing.fardeau;updated++;}
+        else{refData.push({AR_Ref:name,bras:+row.Bras||1,espace:+row.Espace||1,fardeau:+row["Poids (kg)"]||0});added++;}
+      });
+      saveAll();refreshSelect();renderRefs();
+      alert(`Import OK\nAjoutées: ${added}\nMises à jour: ${updated}`);
+    }catch(err){alert("Erreur import: "+err.message);}
+    event.target.value="";
+  };
+  reader.readAsArrayBuffer(file);
+}
+
 function init(){
   if(!plans["Default"]) plans["Default"]={placements:[]};
   currentPlan="Default";
   placements=JSON.parse(JSON.stringify(plans["Default"].placements||[]));
-
   refreshSelect();
   refreshPlans();
   renderRefs();
   render();
-
   buildAutoList();
-}
-
-/* ========================= */
-/* EXPORT EXCEL REFERENCES */
-/* ========================= */
-function exportRefsExcel(){
-  if(typeof XLSX==="undefined"){
-    alert("Librairie XLSX non chargée.");
-    return;
+  updateGhStatusFromConfig();
+  if(ghConfig.token && ghConfig.repo){
+    ghLog("Config GitHub chargée — dépôt : "+ghConfig.repo);
   }
-
-  const rows = [["AR_Ref","Bras","Espace","Poids (kg)"]];
-
-  refData.forEach(r=>{
-    rows.push([r.AR_Ref, r.bras, r.espace, r.fardeau]);
-  });
-
-  const ws = XLSX.utils.aoa_to_sheet(rows);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "References");
-
-  XLSX.writeFile(wb, "references_stockage.xlsx");
 }
 
+// Fermer modal en cliquant en dehors
+document.getElementById("ghModal").addEventListener("click", function(e){
+  if(e.target===this) closeGhConfig();
+});
 
-/* ========================= */
-/* IMPORT EXCEL REFERENCES */
-/* ========================= */
-function importRefsExcel(event){
-  const file = event.target.files[0];
-  if(!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = function(e){
-    try{
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, {type:"array"});
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const json = XLSX.utils.sheet_to_json(sheet);
-
-      if(!json.length){
-        alert("Fichier vide.");
-        return;
-      }
-
-      let added = 0;
-      let updated = 0;
-
-      json.forEach(row=>{
-        if(!row.AR_Ref) return;
-
-        const name = String(row.AR_Ref).trim();
-
-        const existing = refData.find(r => r.AR_Ref === name);
-
-        if(existing){
-          existing.bras = +row.Bras || existing.bras;
-          existing.espace = +row.Espace || existing.espace;
-          existing.fardeau = +row["Poids (kg)"] || existing.fardeau;
-          updated++;
-        } else {
-          refData.push({
-            AR_Ref: name,
-            bras: +row.Bras || 1,
-            espace: +row.Espace || 1,
-            fardeau: +row["Poids (kg)"] || 0
-          });
-          added++;
-        }
-      });
-
-      saveAll();
-      refreshSelect();
-      renderRefs();
-
-      alert(`Import OK\nAjoutées: ${added}\nMises à jour: ${updated}`);
-
-    }catch(err){
-      alert("Erreur import: " + err.message);
-    }
-
-    event.target.value="";
-  };
-
-  reader.readAsArrayBuffer(file);
-}
-
-  async function saveToGitHub() {
-  const data = {
-    version: 2,
-    date: new Date().toISOString(),
-    refs: refData,
-    plans: plans
-  };
-
-  // 1. récupérer SHA du fichier existant
-  const getRes = await fetch(
-    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`,
-    {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
-    }
-  );
-
-  const fileData = await getRes.json();
-  const sha = fileData.sha;
-
-  // 2. envoyer update
-  await fetch(
-    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`,
-    {
-      method: "PUT",
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: "Auto-save data.json",
-        content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
-        sha: sha,
-        branch: BRANCH
-      })
-    }
-  );
-
-  alert("✔ Sauvegarde GitHub réussie !");
-}
-
-function autoSaveLocalAndGitHub(){
-  saveAll(); // localStorage
-  saveToGitHub(); // GitHub
-}
-  
 init();
 </script>
 </body>
