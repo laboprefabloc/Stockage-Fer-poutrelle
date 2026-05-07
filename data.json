@@ -1,7 +1,7 @@
 {
-  "version": 2,
-  "date": "2026-05-07T02:27:33.176Z",
-  "plan": "plan poutrelle",
+  "version": 3,
+  "date": "2026-05-07T05:09:00.763Z",
+  "plan": "Default",
   "refs": [
     {
       "AR_Ref": "R314",
@@ -348,151 +348,750 @@
   ],
   "plans": {
     "Default": {
-      "placements": []
+      "placements": [
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 15,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 15,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 15,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 15,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 18,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 18,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 18,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 18,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        }
+      ]
     },
     "test": {
       "placements": [
         {
           "ref": {
-            "AR_Ref": "R242",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 188.53632000000002
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
           },
           "start": 0,
-          "span": 2,
+          "span": 3,
           "w": 2,
           "h": 3,
           "level": 0
         },
         {
           "ref": {
-            "AR_Ref": "RB233",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 340.43328
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648.3744
           },
-          "start": 2,
-          "span": 2,
+          "start": 3,
+          "span": 3,
           "w": 2,
-          "h": 2,
+          "h": 1,
           "level": 0
         },
         {
           "ref": {
-            "AR_Ref": "RB224",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 276.00768
-          },
-          "start": 4,
-          "span": 2,
-          "w": 2,
-          "h": 2,
-          "level": 0
-        },
-        {
-          "ref": {
-            "AR_Ref": "RB215",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 265.392
+            "AR_Ref": "R350",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 397.2096
           },
           "start": 6,
-          "span": 2,
+          "span": 3,
           "w": 2,
           "h": 3,
           "level": 0
         },
         {
           "ref": {
-            "AR_Ref": "RB206",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 254.77632000000003
+            "AR_Ref": "R305",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 305.2224
           },
-          "start": 8,
-          "span": 2,
+          "start": 9,
+          "span": 3,
           "w": 2,
           "h": 3,
           "level": 0
         },
         {
           "ref": {
-            "AR_Ref": "RB188",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 233.54496
-          },
-          "start": 10,
-          "span": 2,
-          "w": 2,
-          "h": 3,
-          "level": 0
-        },
-        {
-          "ref": {
-            "AR_Ref": "R170",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 134.6688
+            "AR_Ref": "RB512",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 731.30112
           },
           "start": 12,
-          "span": 2,
+          "span": 4,
           "w": 2,
-          "h": 3,
+          "h": 2,
           "level": 0
         },
         {
           "ref": {
-            "AR_Ref": "R161",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 127.93536
-          },
-          "start": 14,
-          "span": 2,
-          "w": 2,
-          "h": 3,
-          "level": 0
-        },
-        {
-          "ref": {
-            "AR_Ref": "R152",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 121.20192000000002
+            "AR_Ref": "RB485",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 693.4752000000001
           },
           "start": 16,
-          "span": 2,
+          "span": 4,
           "w": 2,
-          "h": 3,
+          "h": 2,
           "level": 0
         },
         {
           "ref": {
-            "AR_Ref": "RB233",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 340.43328
+            "AR_Ref": "RA449",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 703.5552
           },
           "start": 0,
-          "span": 2,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA431",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 675.9648000000001
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA404",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 634.5791999999999
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA377",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 532.26432
+          },
+          "start": 9,
+          "span": 3,
           "w": 2,
           "h": 2,
           "level": 1
         },
         {
           "ref": {
-            "AR_Ref": "RB224",
-            "bras": 2,
-            "espace": 1,
-            "fardeau": 276.00768
+            "AR_Ref": "R368",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 417.07007999999996
           },
-          "start": 0,
-          "span": 2,
+          "start": 12,
+          "span": 3,
           "w": 2,
           "h": 2,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R359",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 407.13984
+          },
+          "start": 15,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R332",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 331.38432
+          },
+          "start": 18,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R323",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 322.66368
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R296",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 260.27136
+          },
+          "start": 20,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R287",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 252.61632
+          },
+          "start": 3,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R269",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 237.30624
+          },
+          "start": 5,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648.3744
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R350",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 397.2096
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R305",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 305.2224
+          },
+          "start": 7,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R359",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 407.13984
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R368",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 417.07007999999996
+          },
+          "start": 10,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R332",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 331.38432
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R323",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 322.66368
+          },
+          "start": 13,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R287",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 252.61632
+          },
+          "start": 15,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB512",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 731.30112
+          },
+          "start": 16,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB485",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 693.4752000000001
+          },
+          "start": 17,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R296",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 260.27136
+          },
+          "start": 20,
+          "span": 2,
+          "w": 2,
+          "h": 3,
           "level": 2
         }
       ]
@@ -901,6 +1500,742 @@
           "w": 2,
           "h": 3,
           "level": 0
+        }
+      ]
+    },
+    "maximum R314": {
+      "placements": [
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648.3744
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R350",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 397.2096
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R305",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 305.2224
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R359",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 407.13984
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R287",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 252.61632
+          },
+          "start": 15,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R332",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 331.38432
+          },
+          "start": 17,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R323",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 322.66368
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA395",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 620.784
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R368",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 417.07007999999996
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R269",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 237.30624
+          },
+          "start": 20,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R341",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 387.27936
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA377",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 532.26432
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA431",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 675.9648000000001
+          },
+          "start": 15,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA404",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 634.5791999999999
+          },
+          "start": 18,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R296",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 260.27136
+          },
+          "start": 0,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB512",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 731.30112
+          },
+          "start": 2,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA449",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 703.5552
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA485",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 693
+          },
+          "start": 9,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R107",
+            "bras": 1,
+            "espace": 1,
+            "fardeau": 87.53472
+          },
+          "start": 21,
+          "span": 1,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA611",
+            "bras": 5,
+            "espace": 4,
+            "fardeau": 900.59904
+          },
+          "start": 13,
+          "span": 5,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA575",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 1051.6896
+          },
+          "start": 18,
+          "span": 4,
+          "w": 2,
+          "h": 1,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA548",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 1003.1500800000001
+          },
+          "start": 0,
+          "span": 4,
+          "w": 2,
+          "h": 1,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB539",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 769.1270400000001
+          },
+          "start": 4,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB530",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 756.5184
+          },
+          "start": 8,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB521",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 743.90976
+          },
+          "start": 12,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB503",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 718.69248
+          },
+          "start": 16,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R278",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 244.96128
+          },
+          "start": 20,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        }
+      ]
+    },
+    "max de ref": {
+      "placements": [
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 313.94304
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648.3744
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R350",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 397.2096
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R305",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 305.2224
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R359",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 407.13984
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R287",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 252.61632
+          },
+          "start": 15,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R332",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 331.38432
+          },
+          "start": 17,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R323",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 322.66368
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA395",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 620.784
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R368",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 417.07007999999996
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R269",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 237.30624
+          },
+          "start": 20,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R341",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 387.27936
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA377",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 532.26432
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA431",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 675.9648000000001
+          },
+          "start": 15,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA404",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 634.5791999999999
+          },
+          "start": 18,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R296",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 260.27136
+          },
+          "start": 0,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB512",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 731.30112
+          },
+          "start": 2,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA449",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 703.5552
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA485",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 693
+          },
+          "start": 9,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R107",
+            "bras": 1,
+            "espace": 1,
+            "fardeau": 87.53472
+          },
+          "start": 21,
+          "span": 1,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA611",
+            "bras": 5,
+            "espace": 4,
+            "fardeau": 900.59904
+          },
+          "start": 13,
+          "span": 5,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA575",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 1051.6896
+          },
+          "start": 18,
+          "span": 4,
+          "w": 2,
+          "h": 1,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA548",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 1003.1500800000001
+          },
+          "start": 0,
+          "span": 4,
+          "w": 2,
+          "h": 1,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB539",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 769.1270400000001
+          },
+          "start": 4,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB530",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 756.5184
+          },
+          "start": 8,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB521",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 743.90976
+          },
+          "start": 12,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB503",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 718.69248
+          },
+          "start": 16,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R278",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 244.96128
+          },
+          "start": 20,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 3
         }
       ]
     }
