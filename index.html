@@ -1254,6 +1254,120 @@ function importRefsExcel(event){
   reader.readAsArrayBuffer(file);
 }
 
+// ═══════════════════════════════════════
+// Bannière de démarrage
+// ═══════════════════════════════════════
+function showBanner(msg, type, duration){
+  let banner = document.getElementById("startBanner");
+  if(!banner){
+    banner = document.createElement("div");
+    banner.id = "startBanner";
+    banner.style.cssText = "position:fixed;top:52px;left:50%;transform:translateX(-50%);z-index:500;padding:8px 20px;border-radius:7px;font-size:12px;font-family:var(--mono);display:flex;align-items:center;gap:10px;transition:opacity .5s;box-shadow:0 4px 20px rgba(0,0,0,.4)";
+    document.body.appendChild(banner);
+  }
+  const colors = {
+    info:  {bg:"#1a2540", border:"#4f8ef7", color:"#a0bcf7"},
+    ok:    {bg:"#0d2a1e", border:"#2dd4a0", color:"#2dd4a0"},
+    error: {bg:"#2a0d0d", border:"#f7524f", color:"#f7524f"},
+    warn:  {bg:"#2a220d", border:"#f7c34f", color:"#f7c34f"}
+  };
+  const c = colors[type]||colors.info;
+  banner.style.background = c.bg;
+  banner.style.border = "1px solid "+c.border;
+  banner.style.color = c.color;
+  banner.style.opacity = "1";
+  banner.textContent = msg;
+  if(duration!==0){
+    setTimeout(()=>{ banner.style.opacity="0"; setTimeout(()=>banner.remove(),600); }, duration||3500);
+  }
+}
+
+// ═══════════════════════════════════════
+// Chargement automatique depuis GitHub au démarrage
+// ═══════════════════════════════════════
+async function autoLoadFromGitHub(){
+  if(!ghConfig.token || !ghConfig.repo) return;
+
+  showBanner("⟳ Chargement des données depuis GitHub…", "info", 0);
+  updateGhStatus("syncing", "Chargement…");
+
+  const apiUrl = "https://api.github.com/repos/"+ghConfig.repo+"/contents/"+ghConfig.path;
+  const headers = { Authorization:"token "+ghConfig.token, "User-Agent":"StockagePRO" };
+
+  try{
+    const res = await fetch(apiUrl, {headers});
+    if(!res.ok){
+      if(res.status===404){
+        showBanner("ℹ GitHub connecté — aucune donnée distante encore sauvegardée", "warn");
+        ghLog("Fichier distant introuvable (404) — les données locales sont conservées", "ok");
+        updateGhStatus("connected", ghConfig.repo.split("/")[1]||"GitHub");
+        return;
+      }
+      const e = await res.json();
+      throw new Error(res.status+" : "+(e.message||"erreur"));
+    }
+
+    const fileData = await res.json();
+    const raw = decodeURIComponent(escape(atob(fileData.content)));
+    const data = JSON.parse(raw);
+
+    if(!data.refs || !data.plans) throw new Error("Structure du fichier invalide");
+
+    // Comparer la date de la sauvegarde distante vs locale
+    const remoteDate = data.date ? new Date(data.date) : null;
+    const localDateStr = localStorage.getItem("stock_last_save");
+    const localDate = localDateStr ? new Date(localDateStr) : null;
+
+    // Si données locales plus récentes, proposer le choix
+    if(localDate && remoteDate && localDate > remoteDate){
+      showBanner("", "info", 0);
+      const useRemote = confirm(
+        "⚠ Conflit de données détecté !\n\n"+
+        "• Données locales : "+localDate.toLocaleString("fr-FR")+"\n"+
+        "• Données GitHub  : "+remoteDate.toLocaleString("fr-FR")+"\n\n"+
+        "Vos données locales sont plus récentes.\n"+
+        "Charger quand même depuis GitHub ?\n\n"+
+        "OK = charger GitHub | Annuler = garder local"
+      );
+      if(!useRemote){
+        updateGhStatus("connected", ghConfig.repo.split("/")[1]||"GitHub");
+        ghLog("Données locales conservées (plus récentes que GitHub)", "ok");
+        showBanner("✓ Données locales conservées", "ok");
+        return;
+      }
+    }
+
+    // Appliquer les données GitHub
+    refData = data.refs;
+    plans = data.plans;
+    if(!plans["Default"]) plans["Default"] = {placements:[]};
+    currentPlan = data.plan && plans[data.plan] ? data.plan : "Default";
+    placements = JSON.parse(JSON.stringify(plans[currentPlan].placements||[]));
+
+    localStorage.setItem("stock_last_save", data.date||new Date().toISOString());
+    saveAll();
+    refreshSelect(); refreshPlans(); renderRefs(); buildAutoList(); render();
+
+    const dateStr = remoteDate ? remoteDate.toLocaleString("fr-FR") : "?";
+    ghLog("Auto-chargement OK — "+data.refs.length+" refs, "+Object.keys(data.plans).length+" plan(s) — sauvegardé le "+dateStr, "ok");
+    updateGhStatus("connected", ghConfig.repo.split("/")[1]||"GitHub");
+    showBanner("✓ Données chargées depuis GitHub ("+dateStr+")", "ok");
+
+  } catch(err){
+    ghLog("Erreur auto-chargement : "+err.message, "error");
+    updateGhStatus("error", "Erreur");
+    showBanner("✗ Erreur GitHub : "+err.message, "error");
+  }
+}
+
+// Surcharge saveToGitHub pour mettre à jour le timestamp local
+const _origSave = saveToGitHub;
+async function saveToGitHub(silent){
+  const ok = await _origSave.call(this, silent);
+  if(ok) localStorage.setItem("stock_last_save", new Date().toISOString());
+  return ok;
+}
+
 function init(){
   if(!plans["Default"]) plans["Default"]={placements:[]};
   currentPlan="Default";
@@ -1264,8 +1378,13 @@ function init(){
   render();
   buildAutoList();
   updateGhStatusFromConfig();
+
   if(ghConfig.token && ghConfig.repo){
-    ghLog("Config GitHub chargée — dépôt : "+ghConfig.repo);
+    // Chargement automatique depuis GitHub
+    autoLoadFromGitHub();
+  } else {
+    // Pas de config GitHub → inviter à configurer
+    showBanner("ℹ Configurez GitHub (chip en haut à droite) pour synchroniser sur tous vos appareils", "warn", 6000);
   }
 }
 
