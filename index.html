@@ -279,6 +279,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+  
+  const GITHUB_TOKEN = "data";
+const REPO = "laboprefabloc/Stockage-Fer-poutrelle";
+const FILE_PATH = "data.json";
+const BRANCH = "main";
 const MAX_LEVEL = 800;
 const LEVELS = ["A","B","C","D"];
 
@@ -1255,6 +1260,53 @@ function importRefsExcel(event){
   reader.readAsArrayBuffer(file);
 }
 
+  async function saveToGitHub() {
+  const data = {
+    version: 2,
+    date: new Date().toISOString(),
+    refs: refData,
+    plans: plans
+  };
+
+  // 1. récupérer SHA du fichier existant
+  const getRes = await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`,
+    {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`
+      }
+    }
+  );
+
+  const fileData = await getRes.json();
+  const sha = fileData.sha;
+
+  // 2. envoyer update
+  await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: "Auto-save data.json",
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))),
+        sha: sha,
+        branch: BRANCH
+      })
+    }
+  );
+
+  alert("✔ Sauvegarde GitHub réussie !");
+}
+
+function autoSaveLocalAndGitHub(){
+  saveAll(); // localStorage
+  saveToGitHub(); // GitHub
+}
+  
 init();
 </script>
 </body>
