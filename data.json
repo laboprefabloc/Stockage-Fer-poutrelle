@@ -1,0 +1,908 @@
+{
+  "version": 2,
+  "date": "2026-05-07T02:27:33.176Z",
+  "plan": "plan poutrelle",
+  "refs": [
+    {
+      "AR_Ref": "R314",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 313.94304
+    },
+    {
+      "AR_Ref": "RA413",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 648.3744
+    },
+    {
+      "AR_Ref": "R350",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 397.2096
+    },
+    {
+      "AR_Ref": "R305",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 305.2224
+    },
+    {
+      "AR_Ref": "R359",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 407.13984
+    },
+    {
+      "AR_Ref": "R287",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 252.61632
+    },
+    {
+      "AR_Ref": "R332",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 331.38432
+    },
+    {
+      "AR_Ref": "R323",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 322.66368
+    },
+    {
+      "AR_Ref": "RA395",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 620.784
+    },
+    {
+      "AR_Ref": "R368",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 417.07007999999996
+    },
+    {
+      "AR_Ref": "R269",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 237.30624
+    },
+    {
+      "AR_Ref": "R341",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 387.27936
+    },
+    {
+      "AR_Ref": "RA377",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 532.26432
+    },
+    {
+      "AR_Ref": "RA431",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 675.9648000000001
+    },
+    {
+      "AR_Ref": "RA404",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 634.5791999999999
+    },
+    {
+      "AR_Ref": "R296",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 260.27136
+    },
+    {
+      "AR_Ref": "RB512",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 731.30112
+    },
+    {
+      "AR_Ref": "RA449",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 703.5552
+    },
+    {
+      "AR_Ref": "RA485",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 693
+    },
+    {
+      "AR_Ref": "R107",
+      "bras": 1,
+      "espace": 1,
+      "fardeau": 87.53472
+    },
+    {
+      "AR_Ref": "RA611",
+      "bras": 5,
+      "espace": 4,
+      "fardeau": 900.59904
+    },
+    {
+      "AR_Ref": "RA575",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 1051.6896
+    },
+    {
+      "AR_Ref": "RA548",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 1003.1500800000001
+    },
+    {
+      "AR_Ref": "RB539",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 769.1270400000001
+    },
+    {
+      "AR_Ref": "RB530",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 756.5184
+    },
+    {
+      "AR_Ref": "RB521",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 743.90976
+    },
+    {
+      "AR_Ref": "RB503",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 718.69248
+    },
+    {
+      "AR_Ref": "RB494",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 706.08384
+    },
+    {
+      "AR_Ref": "RB485",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 693.4752000000001
+    },
+    {
+      "AR_Ref": "RB476",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 680.86656
+    },
+    {
+      "AR_Ref": "RB467",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 668.25792
+    },
+    {
+      "AR_Ref": "RB458",
+      "bras": 4,
+      "espace": 3,
+      "fardeau": 655.64928
+    },
+    {
+      "AR_Ref": "RA440",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 689.76
+    },
+    {
+      "AR_Ref": "RA422",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 662.1696000000001
+    },
+    {
+      "AR_Ref": "TF402",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 882.9791999999999
+    },
+    {
+      "AR_Ref": "TE393",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 764.4780000000001
+    },
+    {
+      "AR_Ref": "RA386",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 544.64256
+    },
+    {
+      "AR_Ref": "TC321",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 432.36719999999997
+    },
+    {
+      "AR_Ref": "TC312",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 420.68160000000006
+    },
+    {
+      "AR_Ref": "TC303",
+      "bras": 3,
+      "espace": 2,
+      "fardeau": 408.996
+    },
+    {
+      "AR_Ref": "R278",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 244.96128
+    },
+    {
+      "AR_Ref": "R260",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 229.65120000000002
+    },
+    {
+      "AR_Ref": "R251",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 195.26976
+    },
+    {
+      "AR_Ref": "R242",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 188.53632000000002
+    },
+    {
+      "AR_Ref": "RB233",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 340.43328
+    },
+    {
+      "AR_Ref": "RB224",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 276.00768
+    },
+    {
+      "AR_Ref": "RB215",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 265.392
+    },
+    {
+      "AR_Ref": "RB206",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 254.77632000000003
+    },
+    {
+      "AR_Ref": "RB188",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 233.54496
+    },
+    {
+      "AR_Ref": "R170",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 134.6688
+    },
+    {
+      "AR_Ref": "R161",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 127.93536
+    },
+    {
+      "AR_Ref": "R152",
+      "bras": 2,
+      "espace": 1,
+      "fardeau": 121.20192000000002
+    },
+    {
+      "AR_Ref": "R143",
+      "bras": 1,
+      "espace": 1,
+      "fardeau": 114.46848
+    },
+    {
+      "AR_Ref": "R134",
+      "bras": 1,
+      "espace": 1,
+      "fardeau": 107.73504
+    },
+    {
+      "AR_Ref": "R125",
+      "bras": 1,
+      "espace": 1,
+      "fardeau": 101.00160000000001
+    },
+    {
+      "AR_Ref": "R116",
+      "bras": 1,
+      "espace": 1,
+      "fardeau": 94.26816000000001
+    },
+    {
+      "AR_Ref": "R098",
+      "bras": 1,
+      "espace": 1,
+      "fardeau": 80.80128
+    }
+  ],
+  "plans": {
+    "Default": {
+      "placements": []
+    },
+    "test": {
+      "placements": [
+        {
+          "ref": {
+            "AR_Ref": "R242",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 188.53632000000002
+          },
+          "start": 0,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB233",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 340.43328
+          },
+          "start": 2,
+          "span": 2,
+          "w": 2,
+          "h": 2,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB224",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 276.00768
+          },
+          "start": 4,
+          "span": 2,
+          "w": 2,
+          "h": 2,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB215",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 265.392
+          },
+          "start": 6,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB206",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 254.77632000000003
+          },
+          "start": 8,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB188",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 233.54496
+          },
+          "start": 10,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R170",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 134.6688
+          },
+          "start": 12,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R161",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 127.93536
+          },
+          "start": 14,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R152",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 121.20192000000002
+          },
+          "start": 16,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB233",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 340.43328
+          },
+          "start": 0,
+          "span": 2,
+          "w": 2,
+          "h": 2,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RB224",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 276.00768
+          },
+          "start": 0,
+          "span": 2,
+          "w": 2,
+          "h": 2,
+          "level": 2
+        }
+      ]
+    },
+    "plan poutrelle": {
+      "placements": [
+        {
+          "ref": {
+            "AR_Ref": "RB512",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 731
+          },
+          "start": 0,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA485",
+            "bras": 4,
+            "espace": 3,
+            "fardeau": 693
+          },
+          "start": 4,
+          "span": 4,
+          "w": 2,
+          "h": 2,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA449",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 704
+          },
+          "start": 8,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA431",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 676
+          },
+          "start": 11,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 314
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R350",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 397
+          },
+          "start": 6,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648
+          },
+          "start": 9,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 314
+          },
+          "start": 12,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R305",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 305
+          },
+          "start": 0,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R287",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 253
+          },
+          "start": 3,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R332",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 331
+          },
+          "start": 5,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R323",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 323
+          },
+          "start": 8,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA395",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 621
+          },
+          "start": 11,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R269",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 237
+          },
+          "start": 0,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R296",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 260
+          },
+          "start": 2,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R341",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 387
+          },
+          "start": 4,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA377",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 532
+          },
+          "start": 7,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 314
+          },
+          "start": 19,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 314
+          },
+          "start": 19,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 314
+          },
+          "start": 19,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648
+          },
+          "start": 16,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648
+          },
+          "start": 16,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA413",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 648
+          },
+          "start": 16,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "R368",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 417
+          },
+          "start": 10,
+          "span": 3,
+          "w": 2,
+          "h": 2,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R314",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 314
+          },
+          "start": 19,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R350",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 397
+          },
+          "start": 13,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 3
+        },
+        {
+          "ref": {
+            "AR_Ref": "R287",
+            "bras": 2,
+            "espace": 1,
+            "fardeau": 253
+          },
+          "start": 14,
+          "span": 2,
+          "w": 2,
+          "h": 3,
+          "level": 2
+        },
+        {
+          "ref": {
+            "AR_Ref": "RA404",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 635
+          },
+          "start": 3,
+          "span": 3,
+          "w": 2,
+          "h": 1,
+          "level": 1
+        },
+        {
+          "ref": {
+            "AR_Ref": "R350",
+            "bras": 3,
+            "espace": 2,
+            "fardeau": 397
+          },
+          "start": 14,
+          "span": 3,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R107",
+            "bras": 1,
+            "espace": 1,
+            "fardeau": 87.53472
+          },
+          "start": 17,
+          "span": 1,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        },
+        {
+          "ref": {
+            "AR_Ref": "R107",
+            "bras": 1,
+            "espace": 1,
+            "fardeau": 87.53472
+          },
+          "start": 18,
+          "span": 1,
+          "w": 2,
+          "h": 3,
+          "level": 0
+        }
+      ]
+    }
+  }
+}
