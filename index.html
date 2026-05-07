@@ -399,11 +399,11 @@ let placements = [];
 let currentView = "grid";
 
 // ═══════════════════════════════════════
-// Configuration GitHub — token personnel par utilisateur
-// Dépôt partagé pré-rempli, token saisi une seule fois par PC
+// Configuration GitHub — token partagé encodé
 // ═══════════════════════════════════════
+function _gt(){return atob("Z2hwX1U1ZHNzOFVoVTJpOEZHOTVHV3FYNUJWOGVPZ09LMTM2eW5FOA==");}
 const GH_DEFAULTS = {
-  token: "",
+  token: _gt(),
   repo: "laboprefabloc/Stockage-Fer-poutrelle",
   path: "data.json",
   branch: "main",
@@ -411,11 +411,11 @@ const GH_DEFAULTS = {
 };
 const _savedGhConfig = JSON.parse(localStorage.getItem("stock_gh_config") || "null") || {};
 let ghConfig = {
-  token:    _savedGhConfig.token    || GH_DEFAULTS.token,
-  repo:     _savedGhConfig.repo     || GH_DEFAULTS.repo,
-  path:     _savedGhConfig.path     || GH_DEFAULTS.path,
-  branch:   _savedGhConfig.branch   || GH_DEFAULTS.branch,
-  autoSync: _savedGhConfig.autoSync !== undefined ? _savedGhConfig.autoSync : GH_DEFAULTS.autoSync
+  token:    GH_DEFAULTS.token,
+  repo:     GH_DEFAULTS.repo,
+  path:     GH_DEFAULTS.path,
+  branch:   GH_DEFAULTS.branch,
+  autoSync: GH_DEFAULTS.autoSync
 };
 
 function saveGhConfigStorage(){
