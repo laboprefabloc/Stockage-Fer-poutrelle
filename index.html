@@ -341,7 +341,7 @@
     <div class="config-row">
       <label>Token d'accès personnel (classic)</label>
       <div class="token-field">
-        <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxx">
+        <input type="password" id="ghToken" placeholder="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">
         <button class="token-eye" onclick="toggleToken()" id="tokenEyeBtn">&#128065;</button>
       </div>
       <div class="gh-help">
@@ -403,10 +403,10 @@ let currentView = "grid";
 // ═══════════════════════════════════════
 let ghConfig = JSON.parse(localStorage.getItem("stock_gh_config") || "null") || {
   token: "",
-  repo: "",
+  repo: "laboprefabloc/Stockage-Fer-poutrelle",
   path: "data.json",
   branch: "main",
-  autoSync: false
+  autoSync: true
 };
 
 function saveGhConfigStorage(){
