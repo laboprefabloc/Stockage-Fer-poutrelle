@@ -403,7 +403,7 @@ let currentView = "grid";
 // Le localStorage prend le dessus uniquement si le token y est valide
 // ═══════════════════════════════════════
 const GH_DEFAULTS = {
-  token: "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",
+  token: "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",
   repo: "laboprefabloc/Stockage-Fer-poutrelle",
   path: "data.json",
   branch: "main",
@@ -411,7 +411,7 @@ const GH_DEFAULTS = {
 };
 const _savedGhConfig = JSON.parse(localStorage.getItem("stock_gh_config") || "null") || {};
 let ghConfig = {
-  token:    (_savedGhConfig.token && _savedGhConfig.token !== "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") ? _savedGhConfig.token : GH_DEFAULTS.token,
+  token:    (_savedGhConfig.token && _savedGhConfig.token !== "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") ? _savedGhConfig.token : GH_DEFAULTS.token,
   repo:     _savedGhConfig.repo     || GH_DEFAULTS.repo,
   path:     _savedGhConfig.path     || GH_DEFAULTS.path,
   branch:   _savedGhConfig.branch   || GH_DEFAULTS.branch,
